@@ -1,0 +1,25 @@
+@(userForm: Form[User])(implicit request: MessagesRequestHeader)
+
+<h1>user form</h1>
+
+  @if(userForm.hasGlobalErrors) {
+    <ul>
+    @for(error <- userForm.globalErrors) {
+      <li>@error.format</li>
+    }
+    </ul>
+  }
+
+  @request.flash.get("success").getOrElse("")
+
+  @helper.form(action = routes.UserController.userPost()) {
+    @helper.CSRF.formField
+    @helper.inputText(userForm("id"))
+    @helper.inputText(userForm("lastName"))
+    @helper.inputText(userForm("firstName"))
+    @helper.inputText(userForm("email"))
+    @helper.inputText(userForm("password"))
+    @helper.inputText(userForm("tel"))
+    @helper.inputText(userForm("address"))
+    <input type="submit" value="submit"/>
+  }

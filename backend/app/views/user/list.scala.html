@@ -1,0 +1,5 @@
+@(users: Seq[User])
+
+@for(user <- users) {
+    @user.lastName <br/>
+}

@@ -1,0 +1,22 @@
+@(transfertForm: Form[Transfert])(implicit request: MessagesRequestHeader)
+
+<h1>transfert form</h1>
+
+  @if(transfertForm.hasGlobalErrors) {
+    <ul>
+    @for(error <- transfertForm.globalErrors) {
+      <li>@error.format</li>
+    }
+    </ul>
+  }
+
+
+  @request.flash.get("success").getOrElse("")
+
+  @helper.form(action = routes.TransfertController.transfertPost()) {
+    @helper.CSRF.formField
+    @helper.inputText(transfertForm("id"))
+    @helper.inputText(transfertForm("date_transfert"))
+    @helper.inputText(transfertForm("amount"))
+    <input type="submit" value="submit"/>
+  }
